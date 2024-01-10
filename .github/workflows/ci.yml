@@ -50,14 +50,48 @@ jobs:
         with:
           args: -color
 
+  aeruginous:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          persist-credentials: false
+
+      - run: |
+          rustup update
+          cargo install aeruginous
+          aeruginous complain src/ tests/
+
   bors:
     needs:
       - actionlint
+      - aeruginous
+      - cargo
       - cffconvert
       - renovate-linter
     runs-on: ubuntu-latest
     steps:
       - run: bash -c 'exit 0'
+
+  cargo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          persist-credentials: false
+
+      - run: |
+          rustup update
+          cargo ${{ matrix.cargo }}
+    strategy:
+      matrix:
+        cargo:
+          - b
+          - c
+          - clippy
+          - d
+          - fmt --check
+          - t
 
   cffconvert:
     runs-on: ubuntu-latest
