@@ -21,18 +21,25 @@ use aeruginous_io::ReadPathBufLike;
 
 #[test]
 fn read_path_buf_like_failure_directory() {
-    assert!(".github/".read().is_err());
+    assert!(".github/".read_loudly().is_err());
+    assert!(".github/".read_silently().is_err());
 }
 
 #[test]
 fn read_path_buf_like_failure_does_not_exist() {
-    assert!("no_such_file.txt".read().is_err());
+    assert!("no_such_file.txt".read_loudly().is_err());
+    assert!("no_such_file.txt".read_silently().is_err());
 }
 
 #[test]
 fn read_path_buf_like_success() {
     assert_eq!(
-        "tests/assets/GPL-3.0.rs".read().unwrap(),
+        "tests/assets/GPL-3.0.rs".read_loudly().unwrap(),
+        "tests/assets/GPL-3.0.rs".read_silently().unwrap(),
+    );
+
+    assert_eq!(
+        "tests/assets/GPL-3.0.rs".read_silently().unwrap(),
         "\
 /// Copyright (C) 2024 Kevin Matthes
 ///
