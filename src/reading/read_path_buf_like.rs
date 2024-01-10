@@ -33,7 +33,13 @@ pub trait ReadPathBufLike {
     /// # Errors
     ///
     /// See [`sysexits::ExitCode`].
-    fn read(&self) -> Result<String>;
+    fn read_silently(&self) -> Result<String>;
+
+    /// Read from the file this method is called on.
+    ///
+    /// This method behaves just like [`crate::ReadPathBufLike::read_silently`]
+    /// but also prints error messages to [`std::io::Stderr`].
+    fn read_loudly(&self) -> Result<String>;
 }
 
 impl<T> ReadPathBufLike for T
@@ -41,12 +47,20 @@ where
     PathBuf: From<T>,
     T: Clone,
 {
-    fn read(&self) -> Result<String> {
-        let path = PathBuf::from(self.clone());
-
-        match std::fs::read_to_string(path) {
+    fn read_silently(&self) -> Result<String> {
+        match std::fs::read_to_string(PathBuf::from(self.clone())) {
             Ok(s) => Ok(s),
             Err(e) => Err(e.into()),
+        }
+    }
+
+    fn read_loudly(&self) -> Result<String> {
+        match std::fs::read_to_string(PathBuf::from(self.clone())) {
+            Ok(s) => Ok(s),
+            Err(e) => {
+                eprintln!("{e}");
+                Err(e.into())
+            }
         }
     }
 }
