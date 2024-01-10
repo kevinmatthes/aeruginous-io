@@ -1,0 +1,130 @@
+/*********************** GNU General Public License 3.0 ***********************\
+|                                                                              |
+|  Copyright (C) 2024 Kevin Matthes                                            |
+|                                                                              |
+|  This program is free software: you can redistribute it and/or modify        |
+|  it under the terms of the GNU General Public License as published by        |
+|  the Free Software Foundation, either version 3 of the License, or           |
+|  (at your option) any later version.                                         |
+|                                                                              |
+|  This program is distributed in the hope that it will be useful,             |
+|  but WITHOUT ANY WARRANTY; without even the implied warranty of              |
+|  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               |
+|  GNU General Public License for more details.                                |
+|                                                                              |
+|  You should have received a copy of the GNU General Public License           |
+|  along with this program.  If not, see <https://www.gnu.org/licenses/>.      |
+|                                                                              |
+\******************************************************************************/
+
+//! <!------------------------------------------------------------------------->
+//!
+//! [ci]:  https://github.com/kevinmatthes/aeruginous-io/workflows/ci/badge.svg
+//! [crate]:  https://crates.io/crates/aeruginous-io
+//! [crates-io]:  https://img.shields.io/crates/v/aeruginous-io
+//! [deps]:  https://deps.rs/repo/github/kevinmatthes/aeruginous-io/status.svg
+//! [deps-rs]:  https://deps.rs/repo/github/kevinmatthes/aeruginous-io
+//! [docs]:  https://docs.rs/aeruginous/badge.svg
+//! [docs-rs]:  https://docs.rs/aeruginous-io
+//! [downloads]:  https://img.shields.io/crates/d/aeruginous-io
+//! [gpl3]:  https://github.com/kevinmatthes/aeruginous-io/blob/main/LICENSE
+//! [lcns]:  https://img.shields.io/github/license/kevinmatthes/aeruginous-io
+//! [lcnss]:  https://github.com/kevinmatthes/aeruginous-io/tree/main/LICENSEs
+//! [lst]:  https://img.shields.io/github/last-commit/kevinmatthes/aeruginous-io
+//! [msrv]:  https://img.shields.io/badge/MSRV-1.75.0-brightgreen
+//! [release]:  https://github.com/kevinmatthes/aeruginous-io/releases/latest
+//! [renovate]:  https://img.shields.io/badge/renovate-enabled-brightgreen.svg
+//! [repository]:  https://github.com/kevinmatthes/aeruginous-io
+//! [tag]:  https://img.shields.io/github/v/tag/kevinmatthes/aeruginous-io
+//!
+//! <!------------------------------------------------------------------------->
+//!
+//! <p align = 'center'>
+//! <a href = 'https://github.com/kevinmatthes/aeruginous-rs'>
+//! <img
+//!   height = '200'
+//!   src =
+//!     'https://github.com/kevinmatthes/aeruginous-rs/raw/main/aeruginous.svg'
+//! />
+//! </a>
+//! <br/>
+//! The Aeruginous Open Source Development Toolbox
+//! </p>
+//!
+//! ## Summary
+//!
+//! A set of input / output utilities for the Aeruginous Open Source Development
+//! Toolbox.
+//!
+//! [![][ci]][repository]
+//! [![][lst]][repository]
+//! [![][lcns]][repository]
+//! [![][renovate]][repository]
+//! [![][tag]][release]
+//! <br>
+//! [![][crates-io]][crate]
+//! [![][deps]][deps-rs]
+//! [![][docs]][docs-rs]
+//! [![][downloads]][crate]
+//! [![][msrv]][repository]
+//!
+//! The current code coverage is **<!-- cov --><!-- cov -->**.
+//!
+//! ## License
+//!
+//! This project's license is **GPL-3.0**.  The whole license text can be found
+//! in [`LICENSE`][gpl3] in the repository root.  The brief version is as
+//! follows:
+//!
+//! > Copyright (C) 2024 Kevin Matthes
+//! >
+//! > This program is free software: you can redistribute it and/or modify
+//! > it under the terms of the GNU General Public License as published by
+//! > the Free Software Foundation, either version 3 of the License, or
+//! > (at your option) any later version.
+//! >
+//! > This program is distributed in the hope that it will be useful,
+//! > but WITHOUT ANY WARRANTY; without even the implied warranty of
+//! > MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//! > GNU General Public License for more details.
+//! >
+//! > You should have received a copy of the GNU General Public License
+//! > along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//!
+//! <!------------------------------------------------------------------------->
+
+#![doc(
+    html_logo_url = "https://github.com/kevinmatthes/aeruginous-rs/raw/main/aeruginous.svg" // #[aeruginous::mercy::0003]
+)]
+#![deny(
+    clippy::all,
+    clippy::cargo,
+    clippy::complexity,
+    clippy::correctness,
+    clippy::nursery,
+    clippy::pedantic,
+    clippy::perf,
+    clippy::suspicious,
+    clippy::style,
+    dead_code,
+    deprecated,
+    missing_docs,
+    rustdoc::broken_intra_doc_links,
+    unreachable_code,
+    unused_assignments,
+    unused_imports,
+    unused_macros,
+    unused_must_use,
+    unused_mut,
+    unused_parens,
+    unused_variables
+)]
+#![allow(clippy::multiple_crate_versions)]
+
+/// This crate's name.
+pub const NAME: &str = "aeruginous-io";
+
+/// This crate's version.
+pub const VERSION: &str = "v0.0.0";
+
+/******************************************************************************/
