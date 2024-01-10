@@ -68,7 +68,7 @@
 //! [![][downloads]][crate]
 //! [![][msrv]][repository]
 //!
-//! The current code coverage is **<!-- cov --><!-- cov -->**.
+//! The current code coverage is **<!-- cov -->100.00%<!-- cov -->**.
 //!
 //! ## License
 //!
