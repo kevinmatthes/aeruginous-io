@@ -39,6 +39,10 @@ pub trait ReadPathBufLike {
     ///
     /// This method behaves just like [`crate::ReadPathBufLike::read_silently`]
     /// but also prints error messages to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
     fn read_loudly(&self) -> Result<String>;
 }
 
