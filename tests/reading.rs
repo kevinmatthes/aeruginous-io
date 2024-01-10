@@ -34,7 +34,7 @@ fn read_path_buf_like_success() {
     assert_eq!(
         "tests/assets/GPL-3.0.rs".read().unwrap(),
         "\
-/// Copyright (C) 2023 Kevin Matthes
+/// Copyright (C) 2024 Kevin Matthes
 ///
 /// This program is free software: you can redistribute it and/or modify
 /// it under the terms of the GNU General Public License as published by
