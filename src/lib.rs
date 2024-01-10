@@ -121,6 +121,10 @@
 )]
 #![allow(clippy::multiple_crate_versions)]
 
+mod reading;
+
+pub use reading::ReadPathBufLike;
+
 /// This crate's name.
 pub const NAME: &str = "aeruginous-io";
 
