@@ -20,102 +20,80 @@
 ################################################################################
 ##
 ##  AUTHOR      Kevin Matthes
-##  BRIEF       The CI of this project.
+##  BRIEF       Update the README when changing `src/lib.rs`.
 ##  COPYRIGHT   GPL-3.0
 ##  DATE        2024
-##  FILE        ci.yml
+##  FILE        mirror.yml
 ##  NOTE        See `LICENSE' for full license.
 ##              See `README.md' for project details.
 ##
 ################################################################################
 
-name: ci
+name: mirror
 
 on:
-  pull_request:
   push:
+    branches:
+      - main
+    paths:
+      - src/lib.rs
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
-  actionlint:
+  readme:
+    if: github.repository == 'kevinmatthes/aeruginous-io'
     runs-on: ubuntu-latest
     steps:
+      - uses: taiki-e/install-action@v2.24.2
+        with:
+          tool: cargo-llvm-cov
+
+      - uses: actions/setup-python@v5.0.0
+        with:
+          python-version: 3.11
+
+      - run: rustup update
+
       - uses: actions/checkout@v4.1.1
         with:
+          fetch-depth: 0
           persist-credentials: false
 
-      - uses: docker://rhysd/actionlint:1.6.26
-        with:
-          args: -color
-
-  aeruginous:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
+      - run: echo pycobertura >> requirements.txt
+      - uses: fregante/setup-git-user@v2.0.1
+      - uses: py-actions/py-dependency-install@v4.1.0
 
       - run: |
-          rustup update
+          cargo llvm-cov --cobertura --output-path cobertura.xml
+          sed "s/<!-- cov -->.*<!-- cov -->/<!-- cov -->$( \
+            pycobertura show -f csv --delimiter , cobertura.xml | \
+            grep TOTAL | \
+            cut -d, -f4)<!-- cov -->/g" src/lib.rs >> lib.rs
+          mv lib.rs src/
+          git add src/lib.rs
+          git commit --allow-empty -m \
+            "[GitHub Actions] Update Coverage in src/lib.rs"
+
+      - run: |
           cargo install aeruginous
-          aeruginous complain src/ tests/
+          aeruginous rs2md -i src/lib.rs --outer -o README.md
+          git add README.md
+          git commit --allow-empty -m \
+            "[GitHub Actions] Mirror README.md from src/lib.rs"
 
-  bors:
-    needs:
-      - actionlint
-      - aeruginous
-      - cargo
-      - cffconvert
-      - renovate-linter
-    runs-on: ubuntu-latest
-    steps:
-      - run: bash -c 'exit 0'
-
-  cargo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: peter-evans/create-pull-request@v5.0.2
         with:
-          persist-credentials: false
-
-      - run: |
-          rustup update
-          cargo ${{ matrix.cargo }}
-    strategy:
-      matrix:
-        cargo:
-          - b
-          - c
-          - clippy
-          - d
-          - fmt --check
-          - t
-
-  cffconvert:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
-
-      - uses: docker://citationcff/cffconvert:2.0.0
-        with:
-          args: --validate -i ${{ matrix.cff }}
-    strategy:
-      matrix:
-        cff:
-          - .github/aeruginous-io.cff
-          - CITATION.cff
-
-  renovate-linter:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
-
-      - uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.0.0
+          assignees: |
+            kevinmatthes
+          branch: documentation/mirror
+          branch-suffix: timestamp
+          labels: |
+            documentation
+          milestone: 1
+          title: '[GitHub Actions] Mirror README.md from src/lib.rs'
 
 ################################################################################

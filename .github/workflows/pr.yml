@@ -20,102 +20,57 @@
 ################################################################################
 ##
 ##  AUTHOR      Kevin Matthes
-##  BRIEF       The CI of this project.
+##  BRIEF       Pull Request-related automations.
 ##  COPYRIGHT   GPL-3.0
 ##  DATE        2024
-##  FILE        ci.yml
+##  FILE        pr.yml
 ##  NOTE        See `LICENSE' for full license.
 ##              See `README.md' for project details.
 ##
 ################################################################################
 
-name: ci
+name: pr
 
 on:
   pull_request:
-  push:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
-  actionlint:
+  coverage:
     runs-on: ubuntu-latest
     steps:
+      - uses: taiki-e/install-action@v2.24.2
+        with:
+          tool: cargo-llvm-cov
+
+      - uses: actions/setup-python@v5.0.0
+        with:
+          python-version: 3.11
+
       - uses: actions/checkout@v4.1.1
         with:
+          fetch-depth: 0
           persist-credentials: false
+          ref: ${{ github.head_ref }}
 
-      - uses: docker://rhysd/actionlint:1.6.26
-        with:
-          args: -color
-
-  aeruginous:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
+      - run: echo pycobertura >> requirements.txt
+      - uses: py-actions/py-dependency-install@v4.1.0
 
       - run: |
           rustup update
-          cargo install aeruginous
-          aeruginous complain src/ tests/
+          cargo llvm-cov --cobertura --output-path cobertura.xml
+          {
+            echo '```' ;
+            pycobertura show cobertura.xml ;
+            echo '```' ;
+          } >> coverage.md
 
-  bors:
-    needs:
-      - actionlint
-      - aeruginous
-      - cargo
-      - cffconvert
-      - renovate-linter
-    runs-on: ubuntu-latest
-    steps:
-      - run: bash -c 'exit 0'
-
-  cargo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: thollander/actions-comment-pull-request@v2.4.3
         with:
-          persist-credentials: false
-
-      - run: |
-          rustup update
-          cargo ${{ matrix.cargo }}
-    strategy:
-      matrix:
-        cargo:
-          - b
-          - c
-          - clippy
-          - d
-          - fmt --check
-          - t
-
-  cffconvert:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
-
-      - uses: docker://citationcff/cffconvert:2.0.0
-        with:
-          args: --validate -i ${{ matrix.cff }}
-    strategy:
-      matrix:
-        cff:
-          - .github/aeruginous-io.cff
-          - CITATION.cff
-
-  renovate-linter:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4.1.1
-        with:
-          persist-credentials: false
-
-      - uses: suzuki-shunsuke/github-action-renovate-config-validator@v1.0.0
+          comment_tag: coverage
+          filePath: coverage.md
 
 ################################################################################
