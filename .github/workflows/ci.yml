@@ -106,6 +106,7 @@ jobs:
     strategy:
       matrix:
         cff:
+          - .github/aeruginous-io.cff
           - CITATION.cff
 
   renovate-linter:
