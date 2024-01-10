@@ -1,6 +1,6 @@
 ######################## GNU General Public License 3.0 ########################
 ##                                                                            ##
-## Copyright (C) 2023 Kevin Matthes                                           ##
+## Copyright (C) 2024 Kevin Matthes                                           ##
 ##                                                                            ##
 ## This program is free software: you can redistribute it and/or modify       ##
 ## it under the terms of the GNU General Public License as published by       ##
@@ -22,7 +22,7 @@
 ##  AUTHOR      Kevin Matthes
 ##  BRIEF       The CI of this project.
 ##  COPYRIGHT   GPL-3.0
-##  DATE        2023
+##  DATE        2024
 ##  FILE        ci.yml
 ##  NOTE        See `LICENSE' for full license.
 ##              See `README.md' for project details.
