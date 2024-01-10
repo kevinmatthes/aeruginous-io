@@ -12,3 +12,6 @@ readme = "README.md"
 repository = "https://github.com/kevinmatthes/aeruginous-io"
 rust-version = "1.75.0"
 version = "0.0.0"
+
+[dependencies]
+sysexits = "0.7.10"
