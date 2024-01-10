@@ -1,0 +1,9 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      ".github/workflows/ci.yml",
+      "CITATION.cff",
+    ],
+  },
+)
