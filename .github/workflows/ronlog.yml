@@ -1,0 +1,111 @@
+######################## GNU General Public License 3.0 ########################
+##                                                                            ##
+## Copyright (C) 2024 Kevin Matthes                                           ##
+##                                                                            ##
+## This program is free software: you can redistribute it and/or modify       ##
+## it under the terms of the GNU General Public License as published by       ##
+## the Free Software Foundation, either version 3 of the License, or          ##
+## (at your option) any later version.                                        ##
+##                                                                            ##
+## This program is distributed in the hope that it will be useful,            ##
+## but WITHOUT ANY WARRANTY; without even the implied warranty of             ##
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              ##
+## GNU General Public License for more details.                               ##
+##                                                                            ##
+## You should have received a copy of the GNU General Public License          ##
+## along with this program.  If not, see <https://www.gnu.org/licenses/>.     ##
+##                                                                            ##
+################################################################################
+
+################################################################################
+##
+##  AUTHOR      Kevin Matthes
+##  BRIEF       Prepare a new release.
+##  COPYRIGHT   GPL-3.0
+##  DATE        2024
+##  FILE        ronlog.yml
+##  NOTE        See `LICENSE' for full license.
+##              See `README.md' for project details.
+##
+################################################################################
+
+name: ronlog
+
+on:
+  workflow_dispatch:
+    inputs:
+      release:
+        default: patch
+        description: SemVer release level
+        options:
+          - major
+          - minor
+          - patch
+        required: true
+        type: choice
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  assembly:
+    if: |
+      contains(fromJson('["major", "minor", "patch"]'), inputs.release) &&
+      github.repository == 'kevinmatthes/aeruginous-rs'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5.0.0
+        with:
+          python-version: 3.11
+
+      - uses: taiki-e/install-action@v2.24.3
+        with:
+          tool: cargo-llvm-cov
+
+      - uses: fregante/setup-git-user@v2.0.1
+      - run: echo pycobertura >> requirements.txt
+      - uses: py-actions/py-dependency-install@v4.1.0
+
+      - run: |
+          rm requirements.txt
+          rustup update
+          cargo install aeruginous
+          aeruginous increment-version \
+            -v "$(cat .version)" \
+            -r ${{ inputs.release }} \
+            -p aeruginous-io \
+            -e .github/aeruginous-io.cff \
+            -e .version \
+            -e Cargo.lock \
+            -R Cargo.toml \
+            -e CITATION.cff \
+            -e src/lib.rs
+          aeruginous ronlog release -i changelog.d/ -v "$(cat .version)"
+          cargo llvm-cov --cobertura --output-path cobertura.xml
+          sed "s/<!-- cov -->.*<!-- cov -->/<!-- cov -->$( \
+            pycobertura show -f csv --delimiter , cobertura.xml | \
+            grep TOTAL | \
+            cut -d, -f4)<!-- cov -->/g" src/lib.rs >> lib.rs
+          mv lib.rs src/
+          aeruginous rs2md -i src/lib.rs --outer -o README.md
+          git add .
+          git commit -m \
+            '[GitHub Actions] Assemble CHANGELOG and Increment Versions'
+
+      - uses: peter-evans/create-pull-request@v5.0.2
+        with:
+          assignees: |
+            kevinmatthes
+          branch: documentation/release
+          branch-suffix: timestamp
+          labels: |
+            documentation
+          milestone: 1
+          title: '[Documentation] Release'
+
+################################################################################
