@@ -1,0 +1,10 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      ".github/workflows/ronlog.yml",
+      ".version",
+      "CHANGELOG.ron",
+    ],
+  },
+)
