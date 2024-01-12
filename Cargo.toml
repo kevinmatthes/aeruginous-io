@@ -1,3 +1,6 @@
+[dependencies]
+sysexits = "0.7.10"
+
 [package]
 authors = ["Kevin Matthes <aeruginous.rs@gmail.com>"]
 categories = ["algorithms", "filesystem"]
@@ -11,7 +14,4 @@ name = "aeruginous-io"
 readme = "README.md"
 repository = "https://github.com/kevinmatthes/aeruginous-io"
 rust-version = "1.75.0"
-version = "0.0.0"
-
-[dependencies]
-sysexits = "0.7.10"
+version = "0.1.0"
