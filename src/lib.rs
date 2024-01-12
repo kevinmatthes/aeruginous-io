@@ -29,7 +29,6 @@
 //! [downloads]:  https://img.shields.io/crates/d/aeruginous-io
 //! [gpl3]:  https://github.com/kevinmatthes/aeruginous-io/blob/main/LICENSE
 //! [lcns]:  https://img.shields.io/github/license/kevinmatthes/aeruginous-io
-//! [lcnss]:  https://github.com/kevinmatthes/aeruginous-io/tree/main/LICENSEs
 //! [lst]:  https://img.shields.io/github/last-commit/kevinmatthes/aeruginous-io
 //! [msrv]:  https://img.shields.io/badge/MSRV-1.75.0-brightgreen
 //! [release]:  https://github.com/kevinmatthes/aeruginous-io/releases/latest
