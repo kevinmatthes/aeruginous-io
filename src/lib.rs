@@ -136,6 +136,6 @@ pub use reading::PathBufLikeReader;
 pub const NAME: &str = "aeruginous-io";
 
 /// This crate's version.
-pub const VERSION: &str = "v0.0.0";
+pub const VERSION: &str = "v0.1.0";
 
 /******************************************************************************/

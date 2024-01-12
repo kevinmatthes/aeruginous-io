@@ -1,8 +1,0 @@
-(
-  references: {},
-  changes: {
-    "Added": [
-      ".github/workflows/comment-changes.yml",
-    ],
-  },
-)
