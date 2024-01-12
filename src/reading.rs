@@ -37,8 +37,9 @@ pub trait PathBufLikeReader {
 
     /// Read from the file this method is called on.
     ///
-    /// This method behaves just like [`crate::ReadPathBufLike::read_silently`]
-    /// but also prints error messages to [`std::io::Stderr`].
+    /// This method behaves just like
+    /// [`crate::PathBufLikeReader::read_silently`] despite also printing error
+    /// messages to [`std::io::Stderr`].
     ///
     /// # Errors
     ///
