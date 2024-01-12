@@ -21,7 +21,7 @@ use std::path::PathBuf;
 use sysexits::Result;
 
 /// Read from files given as instances convertible to a [`std::path::PathBuf`].
-pub trait ReadPathBufLike {
+pub trait PathBufLikeReader {
     /// Read from the file this method is called on.
     ///
     /// The instance this method is called on needs to be convertible to a
@@ -46,7 +46,7 @@ pub trait ReadPathBufLike {
     fn read_loudly(&self) -> Result<String>;
 }
 
-impl<T> ReadPathBufLike for T
+impl<T> PathBufLikeReader for T
 where
     PathBuf: From<T>,
     T: Clone,
