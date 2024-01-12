@@ -16,6 +16,7 @@
 [release]:  https://github.com/kevinmatthes/aeruginous-io/releases/latest
 [renovate]:  https://img.shields.io/badge/renovate-enabled-brightgreen.svg
 [repository]:  https://github.com/kevinmatthes/aeruginous-io
+[sysexits-rs]:  https://github.com/sorairolake/sysexits-rs
 [tag]:  https://img.shields.io/github/v/tag/kevinmatthes/aeruginous-io
 
 <!------------------------------------------------------------------------->
@@ -49,6 +50,9 @@ Toolbox.
 [![][downloads]][crate]
 [![][msrv]][repository]
 
+1. [License](#license)
+1. [Dependencies](#dependencies)
+
 The current code coverage is **<!-- cov -->100.00%<!-- cov -->**.
 
 ## License
@@ -71,5 +75,9 @@ follows:
 >
 > You should have received a copy of the GNU General Public License
 > along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+## Dependencies
+
+- [`sysexits`] [![](https://img.shields.io/crates/l/sysexits)][sysexits-rs]
 
 <!------------------------------------------------------------------------->
