@@ -17,7 +17,7 @@
 |                                                                              |
 \******************************************************************************/
 
-use aeruginous_io::ReadPathBufLike;
+use aeruginous_io::PathBufLikeReader;
 
 #[test]
 fn read_path_buf_like_failure_directory() {
