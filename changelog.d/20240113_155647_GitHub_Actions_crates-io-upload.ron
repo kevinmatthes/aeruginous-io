@@ -1,0 +1,8 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "CI:  upload new crate version to registry on release",
+    ],
+  },
+)
