@@ -56,9 +56,9 @@ jobs:
           generate_release_notes: true
           tag_name: v${{ steps.tag_name.outputs.version }}
 
-      # - run: |
-      #     rustup update
-      #     cargo login ${{ secrets.CRATES_IO_GITHUB_AERUGINOUS_IO_UPDATE_TOKEN }}
-      #     cargo publish
+      - run: |
+          rustup update
+          cargo login ${{ secrets.CRATES_IO_GITHUB_AERUGINOUS_IO_UPDATE_TOKEN }}
+          cargo publish
 
 ################################################################################
