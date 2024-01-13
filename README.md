@@ -15,7 +15,6 @@
 [release]:  https://github.com/kevinmatthes/aeruginous-io/releases/latest
 [renovate]:  https://img.shields.io/badge/renovate-enabled-brightgreen.svg
 [repository]:  https://github.com/kevinmatthes/aeruginous-io
-[sysexits-rs]:  https://github.com/sorairolake/sysexits-rs
 [tag]:  https://img.shields.io/github/v/tag/kevinmatthes/aeruginous-io
 
 <!------------------------------------------------------------------------->
@@ -77,6 +76,8 @@ follows:
 
 ## Dependencies
 
-- [`sysexits`] [![](https://img.shields.io/crates/l/sysexits)][sysexits-rs]
+- [`sysexits`]
+  [![](https://img.shields.io/crates/l/sysexits)
+  ](https://github.com/sorairolake/sysexits-rs)
 
 <!------------------------------------------------------------------------->
