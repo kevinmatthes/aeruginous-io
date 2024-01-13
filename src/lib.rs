@@ -131,7 +131,7 @@
 
 mod reading;
 
-pub use reading::PathBufLikeReader;
+pub use reading::{BufReadReader, PathBufLikeReader};
 
 /// This crate's name.
 pub const NAME: &str = "aeruginous-io";

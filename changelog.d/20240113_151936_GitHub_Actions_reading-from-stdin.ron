@@ -1,0 +1,14 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "BufReadReader",
+      "BufReadReader::read_loudly",
+      "BufReadReader::read_silently",
+      "tests for BufReadReader",
+    ],
+    "Fixed": [
+      "typos in documentation",
+    ],
+  },
+)

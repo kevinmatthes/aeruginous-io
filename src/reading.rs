@@ -20,21 +20,74 @@
 use std::path::PathBuf;
 use sysexits::Result;
 
-/// Read from files given as instances convertible to a [`std::path::PathBuf`].
-pub trait PathBufLikeReader {
-    /// Read from the file this method is called on.
+/// Read from a [`std::io::BufRead`]er.
+pub trait BufReadReader {
+    /// Read from a [`std::io::BufRead`]er and print error messages.
     ///
-    /// The instance this method is called on needs to be convertible to a
-    /// [`std::path::PathBuf`].  The return value either contains the read file
-    /// contents as a [`String`] in case of success or a [`sysexits::ExitCode`]
-    /// to describe the error cause, otherwise.  Error messages are not written
-    /// to [`std::io::Stderr`].
+    /// This method behaves just like
+    /// [`crate::BufReadReader::read_silently`] despite also printing error
+    /// messages to [`std::io::Stderr`].
     ///
     /// # Errors
     ///
     /// See [`sysexits::ExitCode`].
-    fn read_silently(&self) -> Result<String>;
+    fn read_loudly(self) -> Result<String>;
 
+    /// Read from a [`std::io::BufRead`]er and suppress any error messages.
+    ///
+    /// The instance this method is called on needs to implement
+    /// [`std::io::BufRead`] and will be consumed in order to retrieve its
+    /// content.  The instance will be read line by line, subsequent lines are
+    /// joined by a single newline character (`\n`).  The last line will have a
+    /// trailing newline character.
+    ///
+    /// The return value is either the read content as a [`String`], in case of
+    /// success, or a [`sysexits::ExitCode`] to describe the error cause,
+    /// otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_silently(self) -> Result<String>;
+}
+
+impl<T: std::io::BufRead> BufReadReader for T {
+    fn read_loudly(self) -> Result<String> {
+        let mut result = String::new();
+
+        for line in self.lines() {
+            match line {
+                Ok(l) => {
+                    result.push_str(&l);
+                    result.push('\n');
+                    Ok(())
+                }
+                Err(e) => {
+                    eprintln!("{e}");
+                    Err(e)
+                }
+            }?;
+        }
+
+        Ok(result)
+    }
+
+    fn read_silently(self) -> Result<String> {
+        let mut result = String::new();
+
+        for line in self.lines() {
+            result.push_str(&line?);
+            result.push('\n');
+        }
+
+        Ok(result)
+    }
+}
+
+/// Read from files given as instances convertible to a [`std::path::PathBuf`].
+pub trait PathBufLikeReader {
     /// Read from the file this method is called on.
     ///
     /// This method behaves just like
@@ -45,6 +98,22 @@ pub trait PathBufLikeReader {
     ///
     /// See [`sysexits::ExitCode`].
     fn read_loudly(&self) -> Result<String>;
+
+    /// Read from the file this method is called on.
+    ///
+    /// The instance this method is called on needs to be convertible to a
+    /// [`std::path::PathBuf`].  The referenced file will be opened and read.
+    ///
+    /// The return value is either the read file content as a [`String`], in
+    /// case of success, or a [`sysexits::ExitCode`] to describe the error
+    /// cause, otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_silently(&self) -> Result<String>;
 }
 
 impl<T> PathBufLikeReader for T
