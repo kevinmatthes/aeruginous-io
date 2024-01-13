@@ -1,0 +1,8 @@
+(
+  references: {},
+  changes: {
+    "Changed": [
+      "README:  list of dependencies",
+    ],
+  },
+)
