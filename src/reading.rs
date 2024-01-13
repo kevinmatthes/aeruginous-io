@@ -41,8 +41,8 @@ pub trait BufReadReader {
     /// joined by a single newline character (`\n`).  The last line will have a
     /// trailing newline character.
     ///
-    /// The return value is either the read content as a [`String`] in case of
-    /// success or a [`sysexits::ExitCode`] to describe the error cause,
+    /// The return value is either the read content as a [`String`], in case of
+    /// success, or a [`sysexits::ExitCode`] to describe the error cause,
     /// otherwise.
     ///
     /// Error messages are not written to [`std::io::Stderr`].
@@ -104,8 +104,8 @@ pub trait PathBufLikeReader {
     /// The instance this method is called on needs to be convertible to a
     /// [`std::path::PathBuf`].  The referenced file will be opened and read.
     ///
-    /// The return value either contains the read file contents as a [`String`]
-    /// in case of success or a [`sysexits::ExitCode`] to describe the error
+    /// The return value is either the read file content as a [`String`], in
+    /// case of success, or a [`sysexits::ExitCode`] to describe the error
     /// cause, otherwise.
     ///
     /// Error messages are not written to [`std::io::Stderr`].
