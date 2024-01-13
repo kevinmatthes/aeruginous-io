@@ -8,6 +8,36 @@
       references: {},
       version: (
         major: 0,
+        minor: 2,
+        patch: 0,
+      ),
+      released: "2024-01-13T16:21:28.970748981Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            ".gitattributes; fixes #21",
+            ".rustfmt.toml; fixes #24",
+            "BufReadReader",
+            "BufReadReader::read_loudly",
+            "BufReadReader::read_silently",
+            "CI:  upload new crate version to registry on release",
+            "tests for BufReadReader",
+          ],
+          "Changed": [
+            "README:  list of dependencies",
+          ],
+          "Fixed": [
+            "typos in documentation",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 1,
         patch: 0,
       ),

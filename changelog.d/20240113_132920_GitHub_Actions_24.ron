@@ -1,8 +1,0 @@
-(
-  references: {},
-  changes: {
-    "Added": [
-      ".rustfmt.toml; fixes #24",
-    ],
-  },
-)
