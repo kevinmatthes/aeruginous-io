@@ -17,7 +17,7 @@
 |                                                                              |
 \******************************************************************************/
 
-use aeruginous_io::PathBufLikeReader;
+use aeruginous_io::{BufReadReader, PathBufLikeReader};
 
 #[test]
 fn read_path_buf_like_failure_directory() {
@@ -57,6 +57,30 @@ fn read_path_buf_like_success() {
 /// along with this program.  If not, see <https://www.gnu.org/licenses/>.
 "
     );
+}
+
+#[test]
+fn read_buf_reader_failure() {
+    assert!("👍"
+        .as_bytes()
+        .iter()
+        .map(|b| if b > &200 { 0 } else { *b })
+        .collect::<Vec<u8>>()
+        .read_loudly()
+        .is_err());
+    assert!("👍"
+        .as_bytes()
+        .iter()
+        .map(|b| if b > &200 { 0 } else { *b })
+        .collect::<Vec<u8>>()
+        .read_silently()
+        .is_err());
+}
+
+#[test]
+fn read_buf_read_success() {
+    assert_eq!({ &(b"test"[..]) }.read_loudly().unwrap(), "test\n");
+    assert_eq!({ &(b"test"[..]) }.read_silently().unwrap(), "test\n");
 }
 
 /******************************************************************************/
