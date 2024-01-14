@@ -86,6 +86,59 @@ impl<T: std::io::BufRead> BufReadReader for T {
     }
 }
 
+/// Read from either source, dependending on the circumstances.
+pub trait OptionReader<T>
+where
+    T: BufReadReader,
+{
+    /// Read from this instance or the given alternative.
+    ///
+    /// This method behaves just like
+    /// [`crate::OptionReader::read_silently`] despite also printing error
+    /// messages to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_loudly(&self, alternative: T) -> Result<String>;
+
+    /// Read from this instance or the given alternative.
+    ///
+    /// If reading the instance this method is called has [`Some`] value, the
+    /// contained value will be interpreted as file to read from.  Therefore,
+    /// the value needs to implement [`crate::PathBufLikeReader`].  In case the
+    /// instance this method is called on is [`None`], the given alternative
+    /// will be considered the source to read from.  Therefore, the alternative
+    /// needs to implement [`crate::BufReadReader`].
+    ///
+    /// The return value is either the read content as a [`String`], in case of
+    /// success, or a [`sysexits::ExitCode`] to describe the error cause,
+    /// otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_silently(&self, alternative: T) -> Result<String>;
+}
+
+impl<P: PathBufLikeReader, T: std::io::BufRead> OptionReader<T> for Option<P> {
+    fn read_loudly(&self, alternative: T) -> Result<String> {
+        self.as_ref().map_or_else(
+            || alternative.read_loudly(),
+            PathBufLikeReader::read_loudly,
+        )
+    }
+
+    fn read_silently(&self, alternative: T) -> Result<String> {
+        self.as_ref().map_or_else(
+            || alternative.read_silently(),
+            PathBufLikeReader::read_silently,
+        )
+    }
+}
+
 /// Read from files given as instances convertible to a [`std::path::PathBuf`].
 pub trait PathBufLikeReader {
     /// Read from the file this method is called on.
@@ -121,13 +174,6 @@ where
     PathBuf: From<T>,
     T: Clone,
 {
-    fn read_silently(&self) -> Result<String> {
-        match std::fs::read_to_string(PathBuf::from(self.clone())) {
-            Ok(s) => Ok(s),
-            Err(e) => Err(e.into()),
-        }
-    }
-
     fn read_loudly(&self) -> Result<String> {
         match std::fs::read_to_string(PathBuf::from(self.clone())) {
             Ok(s) => Ok(s),
@@ -135,6 +181,13 @@ where
                 eprintln!("{e}");
                 Err(e.into())
             }
+        }
+    }
+
+    fn read_silently(&self) -> Result<String> {
+        match std::fs::read_to_string(PathBuf::from(self.clone())) {
+            Ok(s) => Ok(s),
+            Err(e) => Err(e.into()),
         }
     }
 }
