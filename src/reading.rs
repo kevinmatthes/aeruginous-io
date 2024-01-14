@@ -104,12 +104,12 @@ where
 
     /// Read from this instance or the given alternative.
     ///
-    /// If reading the instance this method is called has [`Some`] value, the
-    /// contained value will be interpreted as file to read from.  Therefore,
-    /// the value needs to implement [`crate::PathBufLikeReader`].  In case the
-    /// instance this method is called on is [`None`], the given alternative
-    /// will be considered the source to read from.  Therefore, the alternative
-    /// needs to implement [`crate::BufReadReader`].
+    /// If the instance this method is called has [`Some`] value, the contained
+    /// value will be interpreted as file to read from.  Therefore, the value
+    /// needs to implement [`crate::PathBufLikeReader`].  In case the instance
+    /// this method is called on is [`None`], the given alternative will be
+    /// considered the source to read from.  Therefore, the alternative needs to
+    /// implement [`crate::BufReadReader`].
     ///
     /// The return value is either the read content as a [`String`], in case of
     /// success, or a [`sysexits::ExitCode`] to describe the error cause,
