@@ -1,0 +1,11 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "OptionReader",
+      "OptionReader::read_loudly",
+      "OptionReader::read_silently",
+      "tests for OptionReader",
+    ],
+  },
+)
