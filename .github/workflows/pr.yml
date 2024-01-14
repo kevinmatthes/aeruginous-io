@@ -39,7 +39,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  coverage:
+  code:
     runs-on: ubuntu-latest
     steps:
       - uses: taiki-e/install-action@v2.25.0
@@ -66,11 +66,32 @@ jobs:
             echo '```' ;
             pycobertura show cobertura.xml ;
             echo '```' ;
-          } >> coverage.md
+          } >> code-coverage.md
 
       - uses: thollander/actions-comment-pull-request@v2.4.3
         with:
-          comment_tag: coverage
-          filePath: coverage.md
+          comment_tag: code-coverage
+          filePath: code-coverage.md
+
+  coverage:
+    needs:
+      - code
+      - mutants
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash -c 'exit 0'
+
+  mutants:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+        with:
+          persist-credentials: false
+          ref: ${{ github.head_ref }}
+
+      - run:
+          rustup update
+          cargo install cargo-mutants
+          cargo mutants
 
 ################################################################################
