@@ -87,9 +87,9 @@ impl<T: std::io::BufRead> BufReadReader for T {
 }
 
 /// Read from either source, dependending on the circumstances.
-pub trait OptionReader<T>
+pub trait OptionReader<B>
 where
-    T: BufReadReader,
+    B: BufReadReader,
 {
     /// Read from this instance or the given alternative.
     ///
@@ -100,7 +100,7 @@ where
     /// # Errors
     ///
     /// See [`sysexits::ExitCode`].
-    fn read_loudly(&self, alternative: T) -> Result<String>;
+    fn read_loudly(&self, alternative: B) -> Result<String>;
 
     /// Read from this instance or the given alternative.
     ///
@@ -120,18 +120,18 @@ where
     /// # Errors
     ///
     /// See [`sysexits::ExitCode`].
-    fn read_silently(&self, alternative: T) -> Result<String>;
+    fn read_silently(&self, alternative: B) -> Result<String>;
 }
 
-impl<P: PathBufLikeReader, T: std::io::BufRead> OptionReader<T> for Option<P> {
-    fn read_loudly(&self, alternative: T) -> Result<String> {
+impl<B: std::io::BufRead, P: PathBufLikeReader> OptionReader<B> for Option<P> {
+    fn read_loudly(&self, alternative: B) -> Result<String> {
         self.as_ref().map_or_else(
             || alternative.read_loudly(),
             PathBufLikeReader::read_loudly,
         )
     }
 
-    fn read_silently(&self, alternative: T) -> Result<String> {
+    fn read_silently(&self, alternative: B) -> Result<String> {
         self.as_ref().map_or_else(
             || alternative.read_silently(),
             PathBufLikeReader::read_silently,

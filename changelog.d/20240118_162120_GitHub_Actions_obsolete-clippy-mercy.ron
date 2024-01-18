@@ -1,0 +1,9 @@
+(
+  references: {},
+  changes: {
+    "Fixed": [
+      "BufReadReader:  rename generics to be more intuitive",
+      "Clippy:  mercy on multiple crate versions",
+    ],
+  },
+)
