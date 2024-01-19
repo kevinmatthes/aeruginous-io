@@ -56,7 +56,7 @@ jobs:
           cat .github/aeruginous-io.cff > CITATION.cff
           echo references: >> CITATION.cff
 
-      - uses: kevinmatthes/aeruginous-rs/curl-cffref@v3.7.3
+      - uses: kevinmatthes/aeruginous-rs/curl-cffref@v3.7.4
         with:
           branch: develop
           repository: sorairolake/sysexits-rs
