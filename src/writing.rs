@@ -40,7 +40,7 @@ where
     ///
     /// The data this method is called on will be converted to a [`String`] and
     /// written to the given file.  The data therefore needs to implement
-    /// [`ToString`], the file needs to be convertible to a
+    /// [`ToString`].  The file needs to be convertible to a
     /// [`std::path::PathBuf`].  The file will be truncated.
     ///
     /// The return value is either the unit type, in case of success, or a
