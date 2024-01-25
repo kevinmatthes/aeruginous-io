@@ -8,6 +8,33 @@
       references: {},
       version: (
         major: 0,
+        minor: 4,
+        patch: 0,
+      ),
+      released: "2024-01-25T13:36:37.082844541Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "PathBufLikeTruncation",
+            "PathBufLikeTruncation::truncate_loudly",
+            "PathBufLikeTruncation::truncate_silently",
+            "src/writing.rs",
+            "tests for PathBufLikeTruncation",
+            "tests/writing.rs",
+          ],
+          "Fixed": [
+            "BufReadReader:  rename generics to be more intuitive",
+            "Clippy:  mercy on multiple crate versions",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 3,
         patch: 0,
       ),
