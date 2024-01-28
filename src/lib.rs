@@ -138,6 +138,6 @@ pub use writing::{OptionTruncation, PathBufLikeTruncation, Writer};
 pub const NAME: &str = "aeruginous-io";
 
 /// This crate's version.
-pub const VERSION: &str = "v0.5.0";
+pub const VERSION: &str = "v0.6.0";
 
 /******************************************************************************/
