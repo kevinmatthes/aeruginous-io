@@ -61,6 +61,11 @@ jobs:
           branch: develop
           repository: sorairolake/sysexits-rs
 
+      - uses: kevinmatthes/aeruginous-rs/curl-cffref@v3.7.5
+        with:
+          branch: main
+          repository: sourcefrog/cargo-mutants
+
       - uses: peter-evans/create-pull-request@v5.0.2
         with:
           assignees: |
