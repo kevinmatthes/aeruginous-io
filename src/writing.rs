@@ -127,9 +127,8 @@ where
 {
     /// Write the data this method is called on to the given destination.
     ///
-    /// This method behaves just like
-    /// [`crate::Writer::write_silently`] despite also printing error messages
-    /// to [`std::io::Stderr`].
+    /// This method behaves just like [`crate::Writer::write_silently`] despite
+    /// also printing error messages to [`std::io::Stderr`].
     ///
     /// # Errors
     ///
