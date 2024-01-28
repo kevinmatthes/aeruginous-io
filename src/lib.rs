@@ -132,7 +132,7 @@ mod reading;
 mod writing;
 
 pub use reading::{BufReadReader, OptionReader, PathBufLikeReader};
-pub use writing::{PathBufLikeTruncation, Writer};
+pub use writing::{OptionTruncation, PathBufLikeTruncation, Writer};
 
 /// This crate's name.
 pub const NAME: &str = "aeruginous-io";
