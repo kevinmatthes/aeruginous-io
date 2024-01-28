@@ -101,6 +101,50 @@ mod path_buf_like_truncation {
     }
 }
 
+mod option_truncation {
+    use aeruginous_io::{OptionTruncation, PathBufLikeReader};
+
+    #[test]
+    fn truncate_loudly_success_none() {
+        let mut buffer = Vec::new();
+
+        assert!("test"
+            .truncate_loudly(None::<std::path::PathBuf>, &mut buffer)
+            .is_ok());
+        assert_eq!(buffer, b"test");
+    }
+
+    #[test]
+    fn truncate_loudly_success_some() {
+        let f = "option_truncation_truncate_loudly_success_some.txt";
+
+        assert!("test\n".truncate_loudly(Some(f), &mut Vec::new()).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test\n");
+
+        std::fs::remove_file(f).unwrap();
+    }
+
+    #[test]
+    fn truncate_silently_success_none() {
+        let mut buffer = Vec::new();
+
+        assert!("test"
+            .truncate_silently(None::<std::path::PathBuf>, &mut buffer)
+            .is_ok());
+        assert_eq!(buffer, b"test");
+    }
+
+    #[test]
+    fn truncate_silently_success_some() {
+        let f = "option_truncation_truncate_silently_success_some.txt";
+
+        assert!("test\n".truncate_silently(Some(f), &mut Vec::new()).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test\n");
+
+        std::fs::remove_file(f).unwrap();
+    }
+}
+
 mod writer {
     use aeruginous_io::Writer;
 
