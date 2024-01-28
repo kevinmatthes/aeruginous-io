@@ -5,7 +5,7 @@
       "Writer",
       "Writer::write_loudly",
       "Writer::write_silently",
-      "tests for ``Writer``",
+      "tests for Writer",
     ],
   },
 )
