@@ -101,4 +101,24 @@ mod path_buf_like_truncation {
     }
 }
 
+mod writer {
+    use aeruginous_io::Writer;
+
+    #[test]
+    fn write_loudly_success() {
+        let mut buffer = Vec::new();
+
+        assert!("test".write_loudly(&mut buffer).is_ok());
+        assert_eq!(buffer, b"test");
+    }
+
+    #[test]
+    fn write_silently_success() {
+        let mut buffer = Vec::new();
+
+        assert!("test".write_silently(&mut buffer).is_ok());
+        assert_eq!(buffer, b"test");
+    }
+}
+
 /******************************************************************************/
