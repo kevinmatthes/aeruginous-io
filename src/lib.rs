@@ -70,7 +70,7 @@
 //! 1. [License](#license)
 //! 1. [Dependencies](#dependencies)
 //!
-//! The current code coverage is **<!-- cov -->85.59%<!-- cov -->**.
+//! The current code coverage is **<!-- cov -->87.60%<!-- cov -->**.
 //!
 //! ## License
 //!
@@ -138,6 +138,6 @@ pub use writing::{OptionTruncation, PathBufLikeTruncation, Writer};
 pub const NAME: &str = "aeruginous-io";
 
 /// This crate's version.
-pub const VERSION: &str = "v0.5.0";
+pub const VERSION: &str = "v0.6.0";
 
 /******************************************************************************/
