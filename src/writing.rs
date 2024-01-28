@@ -120,4 +120,73 @@ where
     }
 }
 
+/// Write to a [`std::io::Write`]r.
+pub trait Writer<T>
+where
+    T: std::io::Write,
+{
+    /// Write the data this method is called on to the given destination.
+    ///
+    /// This method behaves just like
+    /// [`crate::Writer::write_silently`] despite also printing error messages
+    /// to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn write_loudly(self, destination: T) -> Result<()>;
+
+    /// Write the data this method is called on to the given destination.
+    ///
+    /// The data this method is called on will be converted to a [`String`] and
+    /// written to the given destination.  The data therefore needs to implement
+    /// [`ToString`].  The destination needs to implement [`std::io::Write`].
+    ///
+    /// The return value is either the unit type, in case of success, or a
+    /// [`sysexits::ExitCode`] to describe the error cause, otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn write_silently(self, destination: T) -> Result<()>;
+}
+
+impl<T: ToString, W: Write> Writer<W> for T {
+    fn write_loudly(self, mut destination: W) -> Result<()> {
+        let bytes = self.to_string().as_bytes().to_vec();
+
+        match destination.write(&bytes) {
+            Err(e) => {
+                eprintln!("{e}");
+                Err(e.into())
+            }
+            Ok(n) => {
+                if n == bytes.len() {
+                    Ok(())
+                } else {
+                    eprintln!("Creating an exact copy was not possible.");
+                    Err(sysexits::ExitCode::IoErr)
+                }
+            }
+        }
+    }
+
+    fn write_silently(self, mut destination: W) -> Result<()> {
+        let bytes = self.to_string().as_bytes().to_vec();
+
+        match destination.write(&bytes) {
+            Err(e) => Err(e.into()),
+            Ok(n) => {
+                if n == bytes.len() {
+                    Ok(())
+                } else {
+                    Err(sysexits::ExitCode::IoErr)
+                }
+            }
+        }
+    }
+}
+
 /******************************************************************************/
