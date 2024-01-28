@@ -18,7 +18,6 @@
 \******************************************************************************/
 
 mod path_buf_like_io {
-
     use aeruginous_io::{PathBufLikeReader, PathBufLikeTruncation};
 
     #[test]
