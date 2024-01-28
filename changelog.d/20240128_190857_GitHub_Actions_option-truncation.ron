@@ -1,0 +1,11 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "OptionTruncation",
+      "OptionTruncation::truncate_loudly",
+      "OptionTruncation::truncate_silently",
+      "tests for OptionTruncation",
+    ],
+  },
+)
