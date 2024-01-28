@@ -8,6 +8,28 @@
       references: {},
       version: (
         major: 0,
+        minor: 5,
+        patch: 0,
+      ),
+      released: "2024-01-28T16:24:24.975888046Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "CFF:  cite CI utility ``cargo-mutants``",
+            "Writer",
+            "Writer::write_loudly",
+            "Writer::write_silently",
+            "tests for Writer",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 4,
         patch: 0,
       ),
