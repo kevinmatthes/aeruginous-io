@@ -8,6 +8,27 @@
       references: {},
       version: (
         major: 0,
+        minor: 6,
+        patch: 0,
+      ),
+      released: "2024-01-28T19:14:35.172962196Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "OptionTruncation",
+            "OptionTruncation::truncate_loudly",
+            "OptionTruncation::truncate_silently",
+            "tests for OptionTruncation",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 5,
         patch: 0,
       ),

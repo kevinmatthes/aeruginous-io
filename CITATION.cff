@@ -16,7 +16,7 @@ repository-artifact: https://crates.io/crates/aeruginous-io
 repository-code: https://github.com/kevinmatthes/aeruginous-io
 title: aeruginous-io
 url: https://github.com/kevinmatthes/aeruginous-io
-version: 0.5.0
+version: 0.6.0
 references:
   - type: software
     date-released: 2024-01-18

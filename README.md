@@ -51,7 +51,7 @@ Toolbox.
 1. [License](#license)
 1. [Dependencies](#dependencies)
 
-The current code coverage is **<!-- cov -->85.59%<!-- cov -->**.
+The current code coverage is **<!-- cov -->87.60%<!-- cov -->**.
 
 ## License
 
