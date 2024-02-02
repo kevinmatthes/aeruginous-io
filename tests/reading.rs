@@ -162,4 +162,75 @@ mod option_reader {
     }
 }
 
+mod vector_reader {
+    use aeruginous_io::VectorReader;
+
+    #[test]
+    fn method_result_equality_empty() {
+        assert_eq!(
+            Vec::<&str>::new().read_loudly(&b"test"[..]).unwrap(),
+            Vec::<&str>::new().read_silently(&b"test"[..]).unwrap(),
+        );
+    }
+
+    #[test]
+    fn method_result_equality_non_empty() {
+        assert_eq!(
+            vec!["tests/assets/GPL-3.0.rs", "tests/assets/GPL-3.0.rs"]
+                .read_loudly(&b""[..])
+                .unwrap(),
+            vec!["tests/assets/GPL-3.0.rs", "tests/assets/GPL-3.0.rs"]
+                .read_silently(&b""[..])
+                .unwrap(),
+        );
+    }
+
+    #[test]
+    fn read_silently_success_empty() {
+        assert_eq!(
+            Vec::<&str>::new().read_silently(&b"test"[..]).unwrap(),
+            "test\n"
+        );
+    }
+
+    #[test]
+    fn read_silently_success_non_empty() {
+        assert_eq!(
+            vec!["tests/assets/GPL-3.0.rs", "tests/assets/GPL-3.0.rs"]
+                .read_silently(&b""[..])
+                .unwrap(),
+            "\
+/// Copyright (C) 2024 Kevin Matthes
+///
+/// This program is free software: you can redistribute it and/or modify
+/// it under the terms of the GNU General Public License as published by
+/// the Free Software Foundation, either version 3 of the License, or
+/// (at your option) any later version.
+///
+/// This program is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/// GNU General Public License for more details.
+///
+/// You should have received a copy of the GNU General Public License
+/// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+/// Copyright (C) 2024 Kevin Matthes
+///
+/// This program is free software: you can redistribute it and/or modify
+/// it under the terms of the GNU General Public License as published by
+/// the Free Software Foundation, either version 3 of the License, or
+/// (at your option) any later version.
+///
+/// This program is distributed in the hope that it will be useful,
+/// but WITHOUT ANY WARRANTY; without even the implied warranty of
+/// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+/// GNU General Public License for more details.
+///
+/// You should have received a copy of the GNU General Public License
+/// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"
+        );
+    }
+}
+
 /******************************************************************************/
