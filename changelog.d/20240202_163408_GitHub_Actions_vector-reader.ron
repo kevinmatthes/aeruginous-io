@@ -1,0 +1,11 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "VectorReader",
+      "VectorReader::read_loudly",
+      "VectorReader::read_silently",
+      "tests for VectorReader",
+    ],
+  },
+)
