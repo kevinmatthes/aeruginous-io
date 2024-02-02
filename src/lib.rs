@@ -131,7 +131,9 @@
 mod reading;
 mod writing;
 
-pub use reading::{BufReadReader, OptionReader, PathBufLikeReader};
+pub use reading::{
+    BufReadReader, OptionReader, PathBufLikeReader, VectorReader,
+};
 pub use writing::{OptionTruncation, PathBufLikeTruncation, Writer};
 
 /// This crate's name.
