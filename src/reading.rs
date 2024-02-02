@@ -192,4 +192,63 @@ where
     }
 }
 
+/// Read from a list of [`crate::PathBufLikeReader`]s.
+pub trait VectorReader<B>
+where
+    B: BufReadReader,
+{
+    /// Read from a list of [`crate::PathBufLikeReader`]s.
+    ///
+    /// This method behaves just like [`crate::VectorReader::read_silently`]
+    /// despite also printing error messages to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_loudly(&self, alternative: B) -> Result<String>;
+
+    /// Read from a list of [`crate::PathBufLikeReader`]s.
+    ///
+    /// The return value is either the read content as a [`String`], in case of
+    /// success, or a [`sysexits::ExitCode`] to describe the error cause,
+    /// otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn read_silently(&self, alternative: B) -> Result<String>;
+}
+
+impl<B: BufReadReader, P: PathBufLikeReader> VectorReader<B> for Vec<P> {
+    fn read_loudly(&self, alternative: B) -> Result<String> {
+        if self.is_empty() {
+            alternative.read_loudly()
+        } else {
+            let mut result = String::new();
+
+            for element in self {
+                result.push_str(element.read_loudly()?.as_str());
+            }
+
+            Ok(result)
+        }
+    }
+
+    fn read_silently(&self, alternative: B) -> Result<String> {
+        if self.is_empty() {
+            alternative.read_silently()
+        } else {
+            let mut result = String::new();
+
+            for element in self {
+                result.push_str(element.read_silently()?.as_str());
+            }
+
+            Ok(result)
+        }
+    }
+}
+
 /******************************************************************************/
