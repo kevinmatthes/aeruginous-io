@@ -8,6 +8,27 @@
       references: {},
       version: (
         major: 0,
+        minor: 7,
+        patch: 0,
+      ),
+      released: "2024-02-02T16:40:59.029670692Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "VectorReader",
+            "VectorReader::read_loudly",
+            "VectorReader::read_silently",
+            "tests for VectorReader",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 6,
         patch: 0,
       ),
