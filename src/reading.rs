@@ -209,6 +209,12 @@ where
 
     /// Read from a list of [`crate::PathBufLikeReader`]s.
     ///
+    /// If the instance this method is called on is a non-empty collection, each
+    /// of its elements will be read.  Therefore, the elements need to implement
+    /// [`crate::PathBufLikeReader`].  In case the instance this method is
+    /// called on is an empty collection, the alternative will be read.
+    /// Therefore, it needs to implement [`crate::BufReadReader`].
+    ///
     /// The return value is either the read content as a [`String`], in case of
     /// success, or a [`sysexits::ExitCode`] to describe the error cause,
     /// otherwise.
