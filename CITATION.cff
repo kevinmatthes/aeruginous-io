@@ -55,4 +55,4 @@ references:
     repository-code: https://github.com/sourcefrog/cargo-mutants
     title: cargo-mutants
     url: https://mutants.rs/
-    version: 24.1.2
+    version: 24.2.0
