@@ -20,6 +20,109 @@
 use std::{io::Write, path::PathBuf};
 use sysexits::Result;
 
+/// Append to the files given as instances convertible to a
+/// [`std::path::PathBuf`].
+pub trait PathBufLikeAppendix<T>
+where
+    PathBuf: From<T>,
+{
+    /// Append the data this method is called on to the given destination.
+    ///
+    /// This method behaves just like
+    /// [`crate::PathBufLikeAppendix::append_silently`] despite also printing
+    /// error messages to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn append_loudly(self, destination: T) -> Result<()>;
+
+    /// Append the data this method is called on to the given destination.
+    ///
+    /// The data this method is called on will be converted to a [`String`] and
+    /// appended to the given file.  The data therefore needs to implement
+    /// [`ToString`].  The file needs to be convertible to a
+    /// [`std::path::PathBuf`].  The data will be appended at the end of the
+    /// file, already existing data will not be changed.  In case that the file
+    /// should not already exist, it will be created before writing to it.
+    ///
+    /// The return value is either the unit type, in case of success, or a
+    /// [`sysexits::ExitCode`] to describe the error cause, otherwise.
+    ///
+    /// Error messages are not written to [`std::io::Stderr`].
+    ///
+    /// # Errors
+    ///
+    /// See [`sysexits::ExitCode`].
+    fn append_silently(self, destination: T) -> Result<()>;
+}
+
+impl<P, T: ToString> PathBufLikeAppendix<P> for T
+where
+    PathBuf: From<P>,
+{
+    fn append_loudly(self, destination: P) -> Result<()> {
+        match std::fs::File::options()
+            .append(true)
+            .create(true)
+            .truncate(false)
+            .write(true)
+            .open(PathBuf::from(destination))
+        {
+            Err(e) => {
+                eprintln!("{e}");
+                Err(e.into())
+            }
+            Ok(mut file) => {
+                let bytes = self.to_string().as_bytes().to_vec();
+
+                match file.write(&bytes) {
+                    Err(e) => {
+                        eprintln!("{e}");
+                        Err(e.into())
+                    }
+                    Ok(n) => {
+                        if n == bytes.len() {
+                            Ok(())
+                        } else {
+                            eprintln!(
+                                "Creating an exact copy was not possible."
+                            );
+                            Err(sysexits::ExitCode::IoErr)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fn append_silently(self, destination: P) -> Result<()> {
+        match std::fs::File::options()
+            .append(true)
+            .create(true)
+            .truncate(false)
+            .write(true)
+            .open(PathBuf::from(destination))
+        {
+            Err(e) => Err(e.into()),
+            Ok(mut file) => {
+                let bytes = self.to_string().as_bytes().to_vec();
+
+                match file.write(&bytes) {
+                    Err(e) => Err(e.into()),
+                    Ok(n) => {
+                        if n == bytes.len() {
+                            Ok(())
+                        } else {
+                            Err(sysexits::ExitCode::IoErr)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 /// Truncate files given as instances convertible to a [`std::path::PathBuf`].
 pub trait PathBufLikeTruncation<T>
 where
