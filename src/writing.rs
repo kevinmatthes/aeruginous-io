@@ -66,7 +66,6 @@ where
             .append(true)
             .create(true)
             .truncate(false)
-            .write(true)
             .open(PathBuf::from(destination))
         {
             Err(e) => {
@@ -101,7 +100,6 @@ where
             .append(true)
             .create(true)
             .truncate(false)
-            .write(true)
             .open(PathBuf::from(destination))
         {
             Err(e) => Err(e.into()),
