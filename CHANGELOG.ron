@@ -8,6 +8,31 @@
       references: {},
       version: (
         major: 0,
+        minor: 8,
+        patch: 0,
+      ),
+      released: "2024-02-11T15:11:15.784499830Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "PathBufLikeAppendix",
+            "PathBufLikeAppendix::append_loudly",
+            "PathBufLikeAppendix::append_silently",
+            "tests for PathBufLikeAppendix",
+          ],
+          "Changed": [
+            "CI:  call Renovate configuration linter directly",
+            "MSRV:  1.76.0",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
         minor: 7,
         patch: 0,
       ),
