@@ -17,6 +17,44 @@
 |                                                                              |
 \******************************************************************************/
 
+mod path_buf_like_appendix {
+    use aeruginous_io::{PathBufLikeAppendix, PathBufLikeReader};
+
+    #[test]
+    fn append_loudly_failure() {
+        assert!(String::new().append_loudly("tests/").is_err());
+    }
+
+    #[test]
+    fn append_loudly_success() {
+        let f = "path_buf_like_appendix_append_loudly_success.txt";
+
+        assert!("test line 1\n".append_loudly(f).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test line 1\n");
+        assert!("test line 2\n".append_loudly(f).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test line 1\ntest line 2\n");
+
+        std::fs::remove_file(f).unwrap();
+    }
+
+    #[test]
+    fn append_silently_failure() {
+        assert!(String::new().append_silently("tests/").is_err());
+    }
+
+    #[test]
+    fn append_silently_success() {
+        let f = "path_buf_like_appendix_append_silently_success.txt";
+
+        assert!("test line 1\n".append_silently(f).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test line 1\n");
+        assert!("test line 2\n".append_silently(f).is_ok());
+        assert_eq!(f.read_silently().unwrap(), "test line 1\ntest line 2\n");
+
+        std::fs::remove_file(f).unwrap();
+    }
+}
+
 mod path_buf_like_io {
     use aeruginous_io::{PathBufLikeReader, PathBufLikeTruncation};
 
