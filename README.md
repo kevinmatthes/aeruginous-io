@@ -33,9 +33,6 @@ The Aeruginous Open Source Development Toolbox
 
 ## Summary
 
-A set of input / output utilities for the Aeruginous Open Source Development
-Toolbox.
-
 [![][ci]][repository]
 [![][lst]][repository]
 [![][lcns]][repository]
@@ -47,6 +44,9 @@ Toolbox.
 [![][docs]][docs-rs]
 [![][downloads]][crate]
 [![][msrv]][repository]
+
+A set of input / output utilities for the Aeruginous Open Source Development
+Toolbox.
 
 1. [License](#license)
 1. [Dependencies](#dependencies)
