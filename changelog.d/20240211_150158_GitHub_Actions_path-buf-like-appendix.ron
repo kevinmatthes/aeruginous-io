@@ -2,7 +2,7 @@
   references: {},
   changes: {
     "Added": [
-      "PathBufLikaAppendix::append_loudly",
+      "PathBufLikeAppendix::append_loudly",
       "PathBufLikeAppendix",
       "PathBufLikeAppendix::append_silently",
       "tests for PathBufLikeAppendix",
