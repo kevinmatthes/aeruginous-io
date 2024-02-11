@@ -1,0 +1,14 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "PathBufLikaAppendix::append_loudly",
+      "PathBufLikeAppendix",
+      "PathBufLikeAppendix::append_silently",
+      "tests for PathBufLikeAppendix",
+    ],
+    "Changed": [
+      "MSRV:  1.76.0",
+    ],
+  },
+)
