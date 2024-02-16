@@ -60,7 +60,7 @@ jobs:
       - run: |
           rustup update
           cargo install aeruginous
-          aeruginous complain src/ tests/
+          aeruginous complain .github/ src/ tests/
 
   bors:
     needs:

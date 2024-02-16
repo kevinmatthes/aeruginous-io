@@ -1,0 +1,8 @@
+(
+  references: {},
+  changes: {
+    "Added": [
+      "CI:  run Aeruginous complain over .github/ directory; fixes #123",
+    ],
+  },
+)
