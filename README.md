@@ -1,4 +1,4 @@
-<!------------------------------------------------------------------------->
+<!------------------- #[aeruginous::mercy::0003::start] ------------------->
 
 [ci]:  https://github.com/kevinmatthes/aeruginous-io/workflows/ci/badge.svg
 [crate]:  https://crates.io/crates/aeruginous-io
@@ -17,7 +17,7 @@
 [repository]:  https://github.com/kevinmatthes/aeruginous-io
 [tag]:  https://img.shields.io/github/v/tag/kevinmatthes/aeruginous-io
 
-<!------------------------------------------------------------------------->
+<!-------------------- #[aeruginous::mercy::0003::end] -------------------->
 
 <p align = 'center'>
 <a href = 'https://github.com/kevinmatthes/aeruginous-rs'>
