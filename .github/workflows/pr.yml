@@ -54,9 +54,9 @@ jobs:
 
       - uses: actions/checkout@v4.1.1
         with:
-          fetch-depth: 0
           persist-credentials: false
           ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - run: echo pycobertura >> requirements.txt
       - uses: py-actions/py-dependency-install@v4.1.0
@@ -64,14 +64,9 @@ jobs:
       - run: |
           rustup update
           cargo llvm-cov --cobertura --output-path cobertura.xml
-          {
-            echo '```' ;
-            pycobertura show cobertura.xml ;
-            echo '```' ;
-          } >> code-coverage.txt
+          pycobertura show cobertura.xml >> code-coverage.txt
 
-      - if: always()
-        uses: actions/upload-artifact@v4.3.1
+      - uses: actions/upload-artifact@v4.3.1
         with:
           name: code-coverage.txt
           path: code-coverage.txt
