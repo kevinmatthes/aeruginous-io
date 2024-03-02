@@ -1,0 +1,8 @@
+(
+  references: {},
+  changes: {
+    "Changed": [
+      "CI:  migrate to coverage system ArtiomTr/jest-coverage-report-action",
+    ],
+  },
+)
