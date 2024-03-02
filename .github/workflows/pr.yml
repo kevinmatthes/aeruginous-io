@@ -68,12 +68,13 @@ jobs:
             echo '```' ;
             pycobertura show cobertura.xml ;
             echo '```' ;
-          } >> code-coverage.md
+          } >> code-coverage.txt
 
-      - uses: thollander/actions-comment-pull-request@v2.5.0
+      - if: always()
+        uses: actions/upload-artifact@v4.3.1
         with:
-          comment_tag: code-coverage
-          filePath: code-coverage.md
+          name: code-coverage.txt
+          path: code-coverage.txt
 
   coverage:
     needs:
