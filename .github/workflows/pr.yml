@@ -32,7 +32,7 @@
 name: pr
 
 on:
-  pull_request:
+  pull_request_target:
 
 permissions:
   contents: read
@@ -63,17 +63,13 @@ jobs:
 
       - run: |
           rustup update
-          cargo llvm-cov --cobertura --output-path cobertura.xml
-          {
-            echo '```' ;
-            pycobertura show cobertura.xml ;
-            echo '```' ;
-          } >> code-coverage.md
+          cargo llvm-cov --json --output-path coverage.json
 
-      - uses: thollander/actions-comment-pull-request@v2.5.0
+      - uses: ArtiomTr/jest-coverage-report-action@v2.2.6
         with:
-          comment_tag: code-coverage
-          filePath: code-coverage.md
+          base-coverage-file: coverage.json
+          coverage-file: coverage.json
+          skip-step: all
 
   coverage:
     needs:
