@@ -1,5 +1,5 @@
 [dependencies]
-sysexits = "0.7.12"
+sysexits = "0.7.13"
 
 [package]
 authors = ["Kevin Matthes <aeruginous.rs@gmail.com>"]
