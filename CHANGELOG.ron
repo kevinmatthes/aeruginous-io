@@ -9,6 +9,33 @@
       version: (
         major: 0,
         minor: 8,
+        patch: 1,
+      ),
+      released: "2024-06-06T11:49:35.668876508Z",
+      introduction: None,
+      changes: (
+        references: {},
+        changes: {
+          "Added": [
+            "CHANGELOG:  information on LICENSE introduction; fixes #122",
+            "CI:  install cargo-mutants via GHA; fixes #133",
+            "CI:  run Aeruginous complain over .github/ directory; fixes #123",
+            "README:  apply Range of Mercy on URL definition section; fixes #124",
+          ],
+          "Changed": [
+            "CI:  upload PR code coverage report as asset instead of PR comment; fixes #151",
+          ],
+          "Fixed": [
+            "CI:  bug when checking forks for PR workflow runs",
+          ],
+        },
+      ),
+    ),
+    (
+      references: {},
+      version: (
+        major: 0,
+        minor: 8,
         patch: 0,
       ),
       released: "2024-02-11T15:11:15.784499830Z",

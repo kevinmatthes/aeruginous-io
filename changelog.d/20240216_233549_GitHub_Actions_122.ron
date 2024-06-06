@@ -1,8 +1,0 @@
-(
-  references: {},
-  changes: {
-    "Added": [
-      "CHANGELOG:  information on LICENSE introduction; fixes #122",
-    ],
-  },
-)

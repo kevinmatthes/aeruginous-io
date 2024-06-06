@@ -1,8 +1,0 @@
-(
-  references: {},
-  changes: {
-    "Fixed": [
-      "CI:  bug when checking forks for PR workflow runs",
-    ],
-  },
-)
