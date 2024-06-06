@@ -1,8 +1,0 @@
-(
-  references: {},
-  changes: {
-    "Changed": [
-      "CI:  upload PR code coverage report as asset instead of PR comment; fixes #151",
-    ],
-  },
-)
