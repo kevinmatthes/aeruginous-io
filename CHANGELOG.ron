@@ -26,7 +26,7 @@
             "CI:  upload PR code coverage report as asset instead of PR comment; fixes #151",
           ],
           "Fixed": [
-            "CI:  bug when checking forks for PR workflow runs",
+            "CI:  bug when checking out forks for PR workflow runs",
           ],
         },
       ),
