@@ -19,8 +19,8 @@ url: https://github.com/kevinmatthes/aeruginous-io
 version: 0.8.1
 references:
   - type: software
-    date-released: 2024-10-31
-    version: 0.8.4
+    date-released: 2024-11-08
+    version: 0.8.5
     abstract: The system exit codes as defined by <sysexits.h> for Rust
     authors:
       - alias: sorairolake
