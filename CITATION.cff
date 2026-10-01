@@ -38,23 +38,3 @@ references:
     repository-code: https://github.com/sorairolake/sysexits-rs
     title: sysexits-rs
     url: https://docs.rs/sysexits
-  - type: software
-    abstract: Find inadequately-tested code that can be removed without any tests failing.
-    authors:
-      - alias: sourcefrog
-        family-names: Pool
-        given-names: Martin
-    date-released: 2024-01-13
-    keywords:
-      - Rust
-      - cargo
-      - coverage
-      - development-tools::testing
-      - mutants
-      - mutation-testing
-      - testing
-    license: MIT
-    repository-code: https://github.com/sourcefrog/cargo-mutants
-    title: cargo-mutants
-    url: https://mutants.rs/
-    version: 24.9.0
